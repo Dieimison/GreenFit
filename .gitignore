@@ -1,0 +1,15 @@
+# O banco e os dados da loja nunca vão para o controle de versão:
+# têm dados de clientes, hashes de senha e o financeiro.
+dados/*.sqlite
+dados/*.sqlite-*
+dados/*.sqlite.*
+dados/erros.log
+
+# Cópias de segurança (o aplicar-estrutura.php grava em dados\backups\;
+# uma cópia feita à mão pode cair em outro lugar).
+dados/backups/
+*.antes-*
+
+# Saída dos testes (testes\rodar.bat grava aqui a cada rodada).
+testes/saida/
+demo/

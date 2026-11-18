@@ -1,0 +1,107 @@
+/* Dashboard/css/painel.css - estilos da gestao: Resultados, Vendas, Financeiro,
+   Compras, Admin e Fiscal (fork C2). Tokens: dashboard.css :root. */
+
+/* ------------------------------------------------------------------
+   Resultados: cartoes de "Cozinha e estoque hoje" (sao botoes: levam a tela)
+   ------------------------------------------------------------------ */
+.painel-cards-hoje {
+    grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+    margin-bottom: 16px;
+}
+.painel-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    border: 1px solid var(--borda);
+    transition: border-color var(--rapido), box-shadow var(--rapido);
+}
+.painel-card:hover:not(:disabled) { border-color: var(--acento-borda); box-shadow: var(--sombra-alta); }
+.painel-card:disabled { cursor: default; }
+.painel-card .stat-title { display: flex; align-items: center; gap: 8px; }
+.painel-card .stat-value,
+.painel-card .stat-sub { display: block; }
+.painel-card .stat-value { line-height: 1.15; }
+.painel-card .stat-sub { color: var(--tinta-fraca); font-size: 12px; }
+.painel-card-alerta { border-color: color-mix(in srgb, var(--grave) 45%, transparent); }
+.painel-card-alerta .stat-value { color: var(--grave); }
+
+.painel-estoque-valor {
+    margin: -6px 0 18px;
+    color: var(--tinta-media);
+    font-size: 13px;
+}
+.painel-acao-lista { display: flex; justify-content: flex-end; margin-bottom: 8px; }
+.painel-hoje { margin-top: 8px; }
+.painel-periodo + .painel-hoje { margin-top: 28px; }
+
+/* botao de baixa em vermelho suave (nao e o "perigo" cheio da exclusao) */
+.botao.botao-perigo-suave {
+    background: color-mix(in srgb, var(--critico) 10%, var(--superficie));
+    color: var(--critico);
+    border: 1px solid color-mix(in srgb, var(--critico) 40%, transparent);
+}
+.botao.botao-perigo-suave:hover { background: color-mix(in srgb, var(--critico) 18%, var(--superficie)); }
+
+/* ------------------------------------------------------------------
+   Barra de ferramentas das listas (Vendas, Financeiro, Compras)
+   ------------------------------------------------------------------ */
+.gestao-topo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+.gestao-topo .secao-descricao { max-width: 640px; }
+.gestao-topo .grupo-botoes { display: flex; flex-wrap: wrap; gap: 8px; }
+.gestao-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 14px;
+}
+.gestao-filtros input[type="search"] { flex: 1 1 240px; min-width: 0; }
+.gestao-filtros select, .gestao-filtros input[type="date"] { flex: 0 1 auto; min-width: 0; }
+.gestao-resumo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin: 0 0 12px;
+    color: var(--tinta-media);
+    font-size: 13px;
+}
+.gestao-resumo strong { color: var(--tinta); font-variant-numeric: tabular-nums; }
+
+/* celulas compactas: numero do documento e a origem logo abaixo */
+.doc-numero { font-weight: 600; white-space: nowrap; }
+.doc-sub { display: block; color: var(--tinta-fraca); font-size: 12px; }
+.acoes-linha { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+.acoes-linha .botao { min-height: 36px; }
+
+/* detalhe (janela de leitura) */
+.detalhe-bloco { margin-bottom: 16px; }
+.detalhe-bloco h4 { margin: 0 0 8px; font-size: 13px; color: var(--tinta-media); text-transform: uppercase; letter-spacing: .04em; }
+.detalhe-adicionais { display: block; color: var(--tinta-fraca); font-size: 12px; }
+
+/* ------------------------------------------------------------------
+   Compras (pedido de entrada): o editor usa as classes .pedido-* do
+   dashboard.css; aqui so o aviso "= 2,5 kg no estoque" de cada linha.
+   ------------------------------------------------------------------ */
+.pedido-estoque { grid-column: 1 / -1; font-size: 12.5px; font-weight: 600; color: var(--acento); margin: 0; min-height: 18px; }
+.pedido-estoque.pedido-estoque-erro { color: var(--critico); }
+
+@media (max-width: 720px) {
+    .gestao-filtros select, .gestao-filtros input[type="date"] { flex: 1 1 calc(50% - 4px); }
+    .gestao-topo .grupo-botoes { width: 100%; }
+    .gestao-topo .grupo-botoes .botao { flex: 1 1 auto; }
+}
+/* a descricao "larga" ocupava 2 colunas da linha do topo e empurrava o × para baixo */
+.pedido-linha-topo .pedido-campo.largo { grid-column: auto; }

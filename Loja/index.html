@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#1f6b43">
+    <meta name="description" content="Green Fit: marmitas fit, bowls e refeições saudáveis com entrega no Norte da Ilha.">
+    <title>Green Fit - Peça sua comida saudável</title>
+    <link rel="icon" href="../Img/logo.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="loja.css">
+</head>
+<body>
+
+<header class="topo" id="topo">
+    <!-- Faixa "Banco de teste" (Dashboard/ambiente.js): so aparece quando o banco esta marcado como de teste -->
+    <div data-faixa-teste hidden></div>
+    <div class="topo-faixa">
+        <a href="#/" class="marca" aria-label="Voltar para o cardápio">
+            <img src="../Img/greenfit-marca.jpg" alt="" width="40" height="40">
+            <span class="marca-textos">
+                <span class="marca-nome" id="nomeLoja">Green Fit</span>
+                <span class="marca-sub" id="statusTopo">Comida saudável</span>
+            </span>
+        </a>
+        <nav class="topo-acoes" aria-label="Navegação">
+            <a href="#/" class="topo-link" data-nav="inicio">Cardápio</a>
+            <a href="#/pedidos" class="topo-link" data-nav="pedidos">Pedidos</a>
+            <a href="#/perfil" class="topo-link topo-conta" data-nav="perfil" id="botaoConta">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+                <span id="rotuloConta">Entrar</span>
+            </a>
+            <a href="#/sacola" class="topo-sacola" aria-label="Sacola" id="botaoSacolaTopo">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                <span class="contador" id="contadorSacola" hidden>0</span>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<main id="conteudo" class="conteudo" tabindex="-1">
+    <p class="carregando">Carregando o cardápio...</p>
+</main>
+
+<!-- Barra da sacola (celular): aparece quando ha itens -->
+<a href="#/sacola" class="barra-sacola" id="barraSacola" hidden>
+    <span class="barra-sacola-qtd" id="barraSacolaQtd">0</span>
+    <span class="barra-sacola-texto">Ver sacola</span>
+    <span class="barra-sacola-total" id="barraSacolaTotal">R$ 0,00</span>
+</a>
+
+<!-- Navegacao de baixo, estilo app (celular) -->
+<nav class="nav-app" aria-label="Navegação principal">
+    <a href="#/" data-nav="inicio">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+        <span>Início</span></a>
+    <a href="#/busca" data-nav="busca">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span>Busca</span></a>
+    <a href="#/pedidos" data-nav="pedidos">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1z"/><path d="M9 12h6M9 16h4"/></svg>
+        <span>Pedidos</span></a>
+    <a href="#/perfil" data-nav="perfil">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        <span>Perfil</span></a>
+</nav>
+
+<!-- Janela do prato (bottom sheet no celular, janela no computador) -->
+<div class="folha-fundo" id="folhaFundo" hidden></div>
+<div class="folha" id="folha" role="dialog" aria-modal="true" aria-labelledby="folhaTitulo" hidden></div>
+
+<div id="avisos" class="avisos" aria-live="polite"></div>
+
+<script src="../Dashboard/ambiente.js"></script>
+<script src="../Dashboard/formato.js"></script>
+<script src="loja.js"></script>
+</body>
+</html>

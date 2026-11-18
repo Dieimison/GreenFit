@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#1f6b43">
+    <title>Entrar - Green Fit</title>
+    <link rel="icon" href="../Img/logo.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- Faixa "Banco de teste" (Dashboard/ambiente.js): so aparece quando o banco esta marcado como de teste -->
+    <div data-faixa-teste hidden class="faixa-teste-login"></div>
+
+    <main class="login-container">
+        <div class="logo">
+            <img src="../Img/greenfit-marca.jpg" alt="Green Fit" width="1380" height="752">
+        </div>
+
+        <!-- Quem esta entrando: a equipe vai para o painel; o cliente, para o app da loja. -->
+        <div class="abas-login" role="tablist" aria-label="Quem está entrando">
+            <button type="button" role="tab" class="aba-login ativa" aria-selected="true" data-modo="funcionario">Equipe</button>
+            <button type="button" role="tab" class="aba-login" aria-selected="false" data-modo="cliente">Cliente</button>
+        </div>
+
+        <h1 id="tituloLogin">Painel da equipe</h1>
+        <p class="subtitulo" id="subtituloLogin">Cozinha, balcão e gestão da loja.</p>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username" id="rotuloUsuario">Usuário</label>
+                <input type="text" id="username" placeholder="Seu usuário" autocomplete="username" required>
+                <span class="input-icon" id="iconeUsuario" aria-hidden="true"></span>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="Sua senha" autocomplete="current-password" required>
+                <span class="input-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+            </div>
+
+            <button type="submit">Entrar</button>
+
+            <div id="errorMessage" class="error-message" role="alert">
+                Credenciais inválidas. Verifique seu usuário e senha.
+            </div>
+        </form>
+
+        <p class="cliente-links" id="clienteLinks" hidden>
+            Ainda não tem conta? <a href="../Loja/index.html#/criar-conta">Criar conta</a>
+            <span aria-hidden="true">·</span> <a href="/loja">Ver o cardápio sem entrar</a>
+        </p>
+
+        <div class="footer">
+            © 2026 Green Fit · Comida de verdade, do jeito que o seu corpo pede
+        </div>
+    </main>
+
+    <script src="../Dashboard/ambiente.js"></script>
+    <script src="../Dashboard/formato.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>

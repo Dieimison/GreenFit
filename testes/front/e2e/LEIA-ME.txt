@@ -1,0 +1,26 @@
+ROTEIROS DE TELA (Playwright) - testes\front\e2e
+=================================================
+
+O que sao
+    Roteiros que abrem o painel, a loja do cliente e a tela de login num
+    navegador de verdade (Chromium sem janela), no computador (1366 px) e
+    no celular (390 px). Reprovam erro de JavaScript, secao vazia e tela
+    mais larga que o aparelho (rolagem lateral).
+
+Como rodar
+    node testes\front\e2e\rodar.js
+    (o testes\rodar.bat ja roda junto com o resto)
+
+    Ele sobe o proprio servidor numa porta livre, sobre um banco novo
+    temporario, e enche o banco com testes\fluxos.test.php. O banco da loja
+    nunca e tocado.
+
+Precisa do Playwright
+    npm install playwright  e  npx playwright install chromium
+    ou a variavel E2E_PLAYWRIGHT com o caminho do pacote, por exemplo:
+        set E2E_PLAYWRIGHT=C:\Users\voce\algum-projeto\node_modules\playwright
+    Sem ele, a etapa sai com 77 e aparece como PULADO (o rodar.bat diz
+    "VERDE COM ETAPA PULADA": a tela NAO foi testada).
+
+Prints
+    set E2E_PRINTS=C:\pasta\dos\prints   guarda um print de cada tela.

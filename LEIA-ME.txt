@@ -1,0 +1,294 @@
+========================================================
+ GREEN FIT - Cozinha, PDV e Loja online de comida saudável
+ Versão 1 (banco versão 1) - nasceu do sistema da Master
+========================================================
+
+O QUE É
+-------
+
+Um sistema só para a loja de comida fit inteira, rodando no navegador:
+
+  LOJA ONLINE   o "app" do cliente, no estilo iFood: cardápio com fotos,
+                calorias e proteína de cada prato, selos (low carb, vegano,
+                sem glúten...), adicionais ("turbine seu prato", "escolha o
+                molho"), sacola, entrega por bairro ou retirada, Pix ou
+                pagamento na entrega, cupom, cashback, pedido agendado,
+                acompanhamento do pedido e avaliação. Funciona no celular.
+
+  PAINEL        o lado da loja: quadro de pedidos online (aceitar, preparar,
+                entregar), PDV do balcão, cardápio com ficha técnica,
+                produção da cozinha, estoque por lote com validade, compras
+                (inclusive pelo XML da nota do fornecedor), vendas,
+                financeiro, resultados, fiscal e cadastros.
+
+A Master (..\Master) é o sistema irmão: o Green Fit nasceu dela, tem
+banco próprio e porta própria, e os dois podem rodar na mesma máquina.
+
+
+VER FUNCIONANDO (demonstração, sem mexer em nada)
+-------------------------------------------------
+
+Dois cliques em  abrir-demonstracao.bat
+
+Na primeira vez ele monta um banco de mentira (uns 2 minutos): 12 pratos,
+29 insumos, equipe, 12 clientes do app, 60 dias de vendas e pedidos e um
+"hoje" com pedidos em todas as etapas. A faixa vermelha "BANCO DE TESTE"
+fica ligada.
+
+    Painel        http://127.0.0.1:5705
+                  p       / p                     tudo (acesso rápido, admin)
+                  admin   / Fit-Teste-2026x       tudo
+                  cozinha / Forno-Verde-2026x   produção, estoque, pedidos
+                  balcao  / Caixa-Verde-2026x    PDV, pedidos
+    Loja online   http://127.0.0.1:5705/loja
+                  cliente@demo.com / Compra-Demo-2026 (ou crie uma conta)
+
+O p / p vem do dados\homologacao.php (a demonstração é um banco de
+homologação; veja HOMOLOGAÇÃO, mais abaixo) e só funciona porque o banco
+é marcado como de teste (Empresa e regras > Regras > Sistema): ali a
+senha fraca não obriga a trocar. Na
+loja de verdade a regra fica desligada e qualquer senha fraca tem de ser
+trocada no primeiro acesso; a tela de usuários nem aceita senha assim.
+Com ENDERECO=0.0.0.0 qualquer pessoa no mesmo Wi-Fi entra com p / p:
+o banco é de mentira, mas não deixe a demonstração aberta numa rede
+que não é sua.
+
+Para ver a loja NO CELULAR (mesmo Wi-Fi): abra um Prompt de Comando na
+pasta, rode   set ENDERECO=0.0.0.0   e depois   abrir-demonstracao.bat
+No celular, abra http://<IP do computador>:5705/loja (o IP aparece em
+"ipconfig", algo como 192.168.0.15).
+
+Recomeçar a demonstração do zero: feche a janela, apague demo\demo.sqlite
+e abra o abrir-demonstracao.bat de novo.
+
+
+INSTALAR PARA USAR DE VERDADE
+-----------------------------
+
+Precisa do PHP 8.3 (o mesmo da Master, em C:\php, com pdo_sqlite, sqlite3
+e mbstring ligados no php.ini).
+
+  1. Na pasta do Green Fit:   php dados\aplicar-estrutura.php
+     Cria dados\index.sqlite e mostra UMA vez a senha inicial do admin
+     (anote; ela é trocada no primeiro acesso).
+  2. Dois cliques em  iniciar-servidor.bat  (porta 5700; abre o navegador).
+  3. Entre como admin, troque a senha e siga o roteiro abaixo.
+
+Rodado de novo, o aplicar-estrutura diz "Nada a fazer". Backup = copiar o
+arquivo dados\index.sqlite (as fotos dos pratos vão junto, dentro dele).
+
+
+ROTEIRO DO PRIMEIRO DIA (o que cadastrar, nesta ordem)
+------------------------------------------------------
+
+  1. Administrativo > Empresa e regras > Empresa: nome, razão social e
+     CNPJ. Administrativo > Fiscal: regime e endereço.
+  2. Administrativo > Minha conta > Equipe: crie os usuários da cozinha e
+     do atendimento (perfis Cozinha e Atendimento: não veem custo, lucro
+     nem financeiro).
+  3. Administrativo > Cadastros > Insumos: os ingredientes e as
+     embalagens, cada um na sua unidade (gramas, mililitros ou unidade) e
+     com o estoque mínimo.
+  4. Administrativo > Cadastros > Fornecedores (a feira e o mercado
+     também: toda compra tem fornecedor).
+  5. Cozinha > Entradas > + Nova entrada (ou Importar XML da NF-e):
+     quantidade, custo e validade de cada linha; ao confirmar, escolha
+     "Já paguei" ou "Fica a pagar".
+  6. Cardápio > Adicionais: os grupos ("Escolha o molho" obrigatório,
+     "Turbine seu prato" opcional) com preço e calorias de cada opção.
+  7. Cardápio > Pratos: nome, categoria, preço, nutrição por porção,
+     selos, validade, ficha técnica (quanto de cada insumo vai em UMA
+     porção), adicionais e até 4 fotos.
+  8. Produção > Nova produção: produza as primeiras porções (os insumos
+     saem do estoque e nasce o lote do prato com validade).
+  9. Administrativo > Loja online: confira os bairros atendidos e as taxas (já
+     vêm Rio Vermelho, Ingleses, Santinho, Vargem Grande e Canasvieiras -
+     ajuste), os horários, a chave Pix, o endereço de retirada, o WhatsApp
+     e o Instagram, e ligue "Loja aberta para pedidos".
+ 10. Divulgue o endereço da loja online (ver "Loja na internet" abaixo).
+
+
+O MENU
+------
+
+Solto, o que é do dia a dia: Início, Pedidos online e PDV. O resto mora
+em grupos que abrem e fecham (o grupo da tela aberta abre sozinho):
+
+  Cozinha         Produção, Cardápio, Entradas, Estoque
+  Gestão          Vendas, Financeiro, Resultados
+  Administrativo  Cadastros, Fiscal, Loja online, Empresa e regras,
+                  Minha conta
+
+Quem não é admin vê só o que pode usar (Cadastros e Minha conta no
+Administrativo, por exemplo).
+
+
+COMO O SISTEMA PENSA
+--------------------
+
+CADASTRO   o que existe: cliente, fornecedor, insumo, prato, adicional.
+MOVIMENTO  o que entra e sai, com quantidade: entrada (lote), produção,
+           venda, pedido online, movimentação (vencimento, perda...).
+FINANCEIRO o dinheiro: toda venda vira conta a receber; toda compra pode
+           virar conta a pagar; o resto se lança na mão.
+
+UMA FERRAMENTA PARA CADA COISA. Mercadoria entra SÓ pela tela Entradas:
+o documento do fornecedor (o XML da NF-e ou a compra digitada, com
+natureza, CFOP e as contas). Cada linha confirmada vira um lote. A tela
+Estoque não lança entrada: ela consulta os lotes, mostra de qual Entrada
+cada um veio (o link abre o documento), movimenta (perda, vencimento,
+ajuste) e corrige o que não é conta (validade, lote). Quantidade e custo
+seguem a nota: para corrigir, cancele a Entrada e lance de novo. Prato
+que a cozinha faz não é entrada: nasce da Produção.
+Confirmar a entrada pede o fornecedor (a natureza exige) e pergunta o
+pagamento: "Já paguei" (a conta nasce paga, a compra à vista) ou "Fica a
+pagar" (vencimento ou as parcelas da nota). Quem confirma é o admin, ou
+a equipe se a regra "pedido.confirmar_equipe" estiver ligada.
+
+O ESTOQUE É POR LOTE E O SALDO É CALCULADO. Ninguém digita saldo: ele é
+entrou - vendido - usado na produção ± movimentações. Cada lote tem custo
+e validade. Na venda e na produção sai primeiro o lote que vence primeiro,
+e lote VENCIDO nunca sai (só por "Baixar vencidos" ou movimentação).
+
+INSUMO É CONTADO NA UNIDADE BASE. 5 kg de frango = 5000 g; 2 L de iogurte
+= 2000 ml. A tela mostra "5 kg", mas guarda gramas inteiras: o estoque
+nunca vira 4,99999 kg.
+
+TRÊS JEITOS DE TER UM PRATO
+  - Produzido (marmitas): ficha técnica + ordem de produção. Concluir a
+    produção baixa os insumos e cria o lote com validade (hoje + os dias
+    de validade do prato). É ele que a loja e o PDV vendem.
+  - Feito na hora (bowls, saladas montadas): não tem lote; vende enquanto
+    estiver ativo, e o custo vem da ficha técnica.
+  - Revenda (kombucha, barrinha): comprado pronto, entra pelo estoque.
+
+PRODUÇÃO
+  Planejada (a lista da cozinha, não mexe em nada) -> Concluída (baixa os
+  insumos, cria o lote) ou Cancelada. Rendeu diferente? Ao concluir, diga
+  quantas porções saíram. Cancelar uma concluída só se o lote estiver
+  inteiro (os insumos voltam) - e só o admin.
+
+PEDIDO ONLINE (o caminho)
+  Pix:          Aguardando pagamento -> a loja confere o Pix -> Confirmado
+  Na entrega:   Aguardando a loja    -> a loja aceita        -> Confirmado
+  Depois:       Em preparo -> Pronto -> Saiu para entrega -> Entregue
+                (retirada: Pronto -> Entregue/Retirado)
+  - Antes de confirmar, o pedido só RESERVA as porções (nem o PDV vende
+    o que está reservado). O Pix não pago no prazo cancela sozinho.
+  - No "Confirmado" nasce a VENDA: o estoque baixa (lote que vence
+    primeiro) e a conta a receber nasce paga (Pix) ou pendente (na
+    entrega - ela é baixada sozinha quando o pedido é entregue).
+  - Cancelar pedido já pago cancela a venda junto (as porções voltam e o
+    dinheiro vira estorno no Financeiro) - só o admin.
+  - Entregue: o cliente ganha o cashback (% dos pratos, Loja online >
+    Ajustes) e pode avaliar com estrelas.
+
+CUPOM E CASHBACK
+  Cupom: porcentagem, valor em reais ou entrega grátis; pedido mínimo,
+  validade, limite total e por cliente, "só na primeira compra".
+  Cashback: crédito de X% de cada pedido entregue; paga até metade dos
+  pratos do próximo pedido; volta se o pedido for cancelado.
+
+PERDAS
+  Vencimento, perda, degustação e consumo da equipe saem pela
+  movimentação, com o custo do lote. Esse custo entra como despesa no
+  resultado ("Perdas e cortesias") - a compra só vira custo quando o prato
+  é vendido, e o que se perde nunca é vendido.
+
+
+O QUE CADA PERFIL FAZ
+---------------------
+
+  admin        tudo: preços, custos, financeiro, resultados, ajustes da
+               loja, fiscal, usuários, exclusões e estornos.
+  cozinha      produção, estoque, cardápio (menos preço), pedidos online,
+               PDV. Não vê custo nem lucro; não exclui; não estorna.
+  atendimento  igual à cozinha (o perfil diz quem é quem no histórico).
+
+Regras ajustáveis em Administrativo > Empresa e regras > Regras: desconto máximo da equipe, mudar
+preço no PDV, venda só com cliente, fiado, confirmar nota de compra e se a
+equipe opera os pedidos online.
+
+
+LOJA NA INTERNET
+----------------
+
+Hoje o servidor roda nesta máquina (ou na rede da loja). Para o cliente
+pedir de casa, o sistema precisa de uma hospedagem com HTTPS (um servidor
+com PHP 8.3 e o arquivo do banco, ou um túnel seguro para esta máquina).
+Até lá, a loja online funciona na rede da loja (Wi-Fi) e na demonstração.
+
+O que ainda NÃO faz: emitir nota fiscal (NFC-e/NF-e); cobrar o Pix
+sozinho (o Pix é conferido pela loja); avisar o cliente por WhatsApp ou
+e-mail sozinho (o painel tem o botão do WhatsApp); "esqueci a senha" do
+cliente; assinatura/plano semanal de marmitas; integração com iFood.
+
+
+HOMOLOGAÇÃO (BANCO DE TESTE)
+----------------------------
+
+Para testar com um banco de verdade sem risco (a cópia do banco de uma
+loja, a demonstração, o banco de quem testa), coloque a CÓPIA em
+homologação:
+
+    php dados\homologacao.php C:\caminho\da\copia.sqlite
+
+Ele leva o banco à versão atual (pelo aplicar-estrutura), grava uma
+cópia de segurança em dados\backups\ e então:
+  - cria (ou acerta) o acesso rápido  p / p , admin;
+  - liga a regra "Este banco é de teste ou demonstração": a faixa
+    vermelha aparece em todas as telas, e só com ela o p entra sem
+    trocar a senha;
+  - deixa o ambiente fiscal de toda empresa em homologação: nota de
+    teste nunca vai para a produção da SEFAZ.
+Pode rodar de novo: só acerta o que falta. A regra e o fiscal ficam no
+histórico, em nome do p.
+
+Ele recusa o dados\index.sqlite desta pasta, porque na pasta da loja é
+o banco em uso. Numa instalação que é toda de homologação, confirme:
+
+    php dados\homologacao.php dados\index.sqlite --banco-da-pasta
+
+Nunca rode no banco da loja: p / p é uma senha que qualquer um
+adivinha. Para um banco sair da homologação, desligue a regra
+(Empresa e regras > Regras > Sistema) e desative o usuário p
+(Minha conta > Usuários do sistema).
+
+
+RODAR OS TESTES
+---------------
+
+    testes\rodar.bat
+
+Cria um banco temporário, sobe o servidor numa porta livre e roda: a
+instalação (2 vezes), o dia da loja inteiro pela API (testes\fluxos.test.php),
+as 24 invariantes do banco (testes\integridade.php), os testes das contas
+da tela e os roteiros de tela num navegador de verdade, no computador e no
+celular (Playwright; ver testes\front\e2e\LEIA-ME.txt). Termina com TUDO
+VERDE, VERDE COM ETAPA PULADA (e2e) ou FALHOU.
+
+
+ESTRUTURA
+---------
+
+    GreenFit\
+        Loja\          o app do cliente (index.html, loja.css, loja.js)
+        Login\         tela de entrada (abas Funcionário | Cliente)
+        Dashboard\     o painel; telas\ uma tela por arquivo; css\ por área
+        api\           api.php (roteador), nucleo.php (regras e domínios),
+                       rotas\ um arquivo por assunto (pratos, producao,
+                       estoque, vendas, loja, pedidos, painel...)
+        dados\         estrutura.sql (o banco novo), aplicar-estrutura.php,
+                       dados-demonstracao.php, homologacao.php (banco de
+                       teste: p / p, faixa, fiscal), migracoes\ (futuras)
+        Img\           a marca (logo, foto de demonstração)
+        testes\        rodar.bat e as suítes
+        memory.md      como o sistema funciona por dentro (para quem mexe)
+
+    Dentro de dados\ e testes\, criadas sozinhas e fora do git:
+        dados\backups\   cópias de segurança do aplicar-estrutura
+        testes\saida\    saída do testes\rodar.bat
+
+    O projeto é uma pasta só: nada é gravado fora dela. Para levar o
+    código para outra máquina, copie tudo menos dados\, demo\ e
+    testes\saida\.

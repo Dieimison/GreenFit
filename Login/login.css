@@ -1,0 +1,135 @@
+/* ==================================================================
+   GREEN FIT - tela de entrada (equipe e cliente)
+   Cores como tokens (paleta validada: texto AA); o resto usa var(--...).
+   Leve de proposito: sem 3D, sem fundo animado.
+   ================================================================== */
+:root {
+    --fundo:          #fbf7f0;
+    --superficie:     #ffffff;
+    --superficie-2:   #f4efe5;
+    --tint:           #e7f3eb;
+    --verde:          #1f6b43;
+    --verde-hover:    #18573a;
+    --verde-profundo: #163a28;
+    --dourado:        #c9a24a;
+    --tinta:          #1c2a21;
+    --tinta-media:    #4f5f55;
+    --tinta-fraca:    #66756b;
+    --borda:          rgba(28, 42, 33, .16);
+    --erro:           #c0392b;
+    --erro-fundo:     #fde9e7;
+    --sucesso:        #1f8a4c;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif; }
+
+body {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 24px 16px;
+    color: var(--tinta);
+    background:
+        radial-gradient(900px 520px at 10% -10%, rgba(156, 204, 101, .22), transparent 60%),
+        radial-gradient(800px 480px at 100% 110%, rgba(201, 162, 74, .16), transparent 60%),
+        var(--fundo);
+    overflow-x: hidden;
+}
+
+.faixa-teste-login { align-self: stretch; margin: -24px -16px 16px; }
+
+.login-container {
+    width: 100%; max-width: 420px;
+    padding: 0 0 24px;
+    border-radius: 20px;
+    background: var(--superficie);
+    box-shadow: 0 1px 2px rgba(28, 42, 33, .06), 0 18px 48px rgba(28, 42, 33, .12);
+    overflow: hidden;
+    text-align: center;
+}
+
+.logo { background: #efe6d6; }
+.logo img { display: block; width: 100%; height: auto; aspect-ratio: 1380 / 752; max-height: 230px; object-fit: cover; object-position: center 40%; }
+
+.abas-login {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    margin: 20px 24px 0; padding: 4px; border-radius: 12px; background: var(--superficie-2);
+}
+.aba-login {
+    min-height: 42px; border: 0; border-radius: 9px; background: transparent; cursor: pointer;
+    color: var(--tinta-media); font-weight: 600; font-size: 14px;
+}
+.aba-login.ativa { background: var(--superficie); color: var(--verde); box-shadow: 0 1px 3px rgba(28, 42, 33, .14); }
+.aba-login:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid rgba(31, 107, 67, .45); outline-offset: 2px; }
+
+h1 { margin: 22px 24px 2px; font-size: 22px; font-weight: 700; color: var(--verde-profundo); }
+.subtitulo { margin: 0 24px; font-size: 14px; color: var(--tinta-fraca); }
+
+form { padding: 8px 24px 0; text-align: left; }
+
+.input-group { position: relative; margin-top: 16px; }
+.input-group label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--tinta-media); }
+.input-group input {
+    width: 100%; min-height: 50px; padding: 12px 14px 12px 44px;
+    border: 1.5px solid var(--borda); border-radius: 12px; background: var(--superficie);
+    color: var(--tinta); font-size: 15px;
+}
+.input-group input::placeholder { color: #8a978f; }
+.input-group input:focus { outline: none; border-color: var(--verde); box-shadow: 0 0 0 3px rgba(31, 107, 67, .16); }
+.input-icon { position: absolute; left: 14px; bottom: 15px; width: 20px; height: 20px; color: var(--tinta-fraca); pointer-events: none; }
+.input-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.input-group.focused .input-icon { color: var(--verde); }
+
+form button[type="submit"] {
+    width: 100%; min-height: 52px; margin-top: 22px; border: 0; border-radius: 12px; cursor: pointer;
+    background: var(--verde); color: #fff; font-size: 16px; font-weight: 600;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+form button[type="submit"]:hover { background: var(--verde-hover); }
+form button[type="submit"]:disabled { cursor: wait; opacity: .85; }
+
+.error-message {
+    display: none; margin-top: 14px; padding: 10px 12px; border-radius: 10px;
+    background: var(--erro-fundo); color: #8e2a1f; font-size: 13px; text-align: center;
+}
+
+.cliente-links { margin: 16px 24px 0; font-size: 14px; color: var(--tinta-media); }
+.cliente-links a { color: var(--verde); font-weight: 600; }
+
+.footer { margin: 22px 24px 0; font-size: 12px; color: var(--tinta-fraca); }
+
+.shake { animation: shake .4s; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+@media (prefers-reduced-motion: reduce) { .shake { animation: none; } }
+
+.spinner {
+    width: 18px; height: 18px; border: 2px solid rgba(255, 255, 255, .4); border-top-color: #fff;
+    border-radius: 50%; display: inline-block; animation: girar .8s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+.success { font-weight: 700; }
+.success-button { background: var(--sucesso) !important; }
+
+.success-overlay {
+    position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 16px;
+    background: rgba(22, 32, 26, .45); opacity: 0; transition: opacity .25s;
+}
+.success-overlay.visible { opacity: 1; }
+.success-modal {
+    max-width: 340px; width: 100%; padding: 28px 24px; border-radius: 18px; text-align: center;
+    background: var(--superficie); box-shadow: 0 18px 48px rgba(28, 42, 33, .25);
+    transform: translateY(10px); transition: transform .25s;
+}
+.success-overlay.visible .success-modal { transform: none; }
+.success-icon {
+    width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--tint); color: var(--verde); font-size: 28px; font-weight: 700;
+}
+.success-modal h3 { font-size: 18px; color: var(--verde-profundo); }
+.success-modal p { margin-top: 6px; font-size: 14px; color: var(--tinta-media); }
+
+@media (max-width: 420px) {
+    body { padding: 0; justify-content: flex-start; background: var(--superficie); }
+    .login-container { max-width: none; min-height: 100vh; border-radius: 0; box-shadow: none; }
+    .faixa-teste-login { margin: 0; }
+}

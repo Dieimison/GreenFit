@@ -1,0 +1,298 @@
+/* Dashboard/css/cozinha.css - estilos da COZINHA: cardapio, producao,
+   estoque, movimentacao e cadastros (telas/cardapio.js, producao.js,
+   entradas.js, movimentacao.js, cadastros.js). Tokens: dashboard.css :root.
+   Tudo com prefixo cz- para nao esbarrar nas outras areas.
+   Celular primeiro: nada passa da largura da tela em 360 px. */
+
+/* ---------- abas e filtros ---------- */
+.cz-abas { margin-bottom: 14px; }
+.cz-abas-topo { margin-bottom: 18px; }
+.cz-contagem {
+    display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 4px;
+    border-radius: var(--raio-pill); background: var(--superficie-alta); color: var(--tinta-media);
+    font-size: 11px; font-weight: 600; text-align: center; line-height: 18px;
+}
+.sub-aba.ativa .cz-contagem { background: var(--acento); color: #fff; }
+.cz-check {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 4px;
+    color: var(--tinta-media); font-size: 13px; cursor: pointer; white-space: nowrap;
+}
+.cz-check input { width: 18px; height: 18px; accent-color: var(--acento); }
+
+/* ---------- quantidade com unidade de compra ---------- */
+.cz-quantidade-linha { display: flex; gap: 8px; }
+.cz-quantidade-linha input { flex: 1 1 auto; min-width: 0; }
+.cz-quantidade-linha select { flex: 0 0 auto; width: auto; min-width: 92px; }
+
+/* ---------- alertas do estoque ---------- */
+.cz-alertas {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 14px;
+}
+.cz-alerta {
+    display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; text-align: left;
+    background: var(--superficie); border: 1px solid var(--borda); border-left: 4px solid var(--borda-forte);
+    border-radius: var(--raio-p); color: var(--tinta); font: inherit; box-shadow: var(--sombra);
+}
+button.cz-alerta { cursor: pointer; }
+button.cz-alerta:hover { border-color: var(--acento-borda); }
+.cz-alerta strong { font-size: 24px; line-height: 1.1; font-weight: 700; }
+.cz-alerta span { font-size: 13px; font-weight: 600; }
+.cz-alerta em { font-style: normal; font-size: 12px; color: var(--tinta-fraca); overflow-wrap: anywhere; }
+.cz-alerta-grave { border-left-color: var(--critico); }
+.cz-alerta-grave strong { color: var(--critico); }
+.cz-alerta-atencao { border-left-color: var(--atencao); }
+.cz-alerta-atencao strong { color: var(--atencao); }
+.cz-alerta-bom { border-left-color: var(--bom); }
+.cz-alerta-bom strong { color: var(--bom); }
+
+.cz-faixa-vencidos {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 12px 16px; margin-bottom: 14px; border-radius: var(--raio-p);
+    background: color-mix(in srgb, var(--critico) 9%, var(--superficie)); border: 1px solid color-mix(in srgb, var(--critico) 30%, transparent);
+    color: var(--tinta); font-size: 13px;
+}
+.botao-perigo-suave { background: var(--critico); border-color: var(--critico); color: #fff; }
+.botao-perigo-suave:hover { background: color-mix(in srgb, var(--critico) 85%, #000); }
+.cz-valor-parado { margin: -4px 0 14px; }
+
+/* linhas da lista de lotes */
+tr.cz-linha-vencida td:first-child { box-shadow: inset 4px 0 0 var(--critico); }
+tr.cz-linha-vencendo td:first-child { box-shadow: inset 4px 0 0 var(--atencao); }
+table.em-cartoes tr.cz-linha-vencida { border-left: 4px solid var(--critico); }
+table.em-cartoes tr.cz-linha-vencendo { border-left: 4px solid var(--atencao); }
+
+/* ---------- ficha do item ---------- */
+.cz-ficha-cards { margin-bottom: 16px; }
+.cz-lotes-ficha { list-style: none; display: grid; gap: 6px; margin: 0 0 16px; padding: 0; }
+.cz-lotes-ficha li {
+    padding: 8px 12px; border-radius: var(--raio-p); background: var(--superficie-alta); font-size: 13px; overflow-wrap: anywhere;
+}
+.cz-nota { margin-top: 12px; }
+
+/* ---------- producao ---------- */
+.cz-plano { margin-bottom: 22px; }
+.cz-grupo { margin-bottom: 18px; }
+.cz-grupo-titulo { font-size: 15px; font-weight: 600; margin: 0 0 10px; }
+.cz-grupo-titulo small { font-weight: 400; color: var(--tinta-fraca); font-size: 12px; margin-left: 6px; }
+.cz-grupo-atrasado { color: var(--critico); }
+.cz-grade-producao { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.cz-cartao-producao {
+    display: flex; flex-direction: column; gap: 6px; padding: 14px 16px;
+    background: var(--superficie); border: 1px solid var(--borda); border-radius: var(--raio); box-shadow: var(--sombra);
+}
+.cz-cartao-producao.cz-atrasada { border-color: color-mix(in srgb, var(--critico) 45%, transparent); }
+.cz-cartao-topo { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.cz-porcoes { color: var(--acento); font-size: 13px; }
+.cz-porcoes strong { font-size: 22px; font-weight: 700; }
+.cz-cartao-titulo { font-size: 15px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.cz-falta {
+    margin: 2px 0; padding: 8px 10px; border-radius: 8px; font-size: 12.5px;
+    background: color-mix(in srgb, var(--critico) 8%, transparent); color: var(--critico);
+}
+.cz-ok { margin: 2px 0; font-size: 12.5px; color: var(--bom); font-weight: 600; }
+.cz-cartao-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: auto; padding-top: 6px; }
+.cz-cartao-acoes .botao, .cz-cartao-acoes .botao-icone { min-height: 40px; }
+
+.cz-sugestao { margin-bottom: 22px; }
+.cz-lista-sugestao { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cz-lista-sugestao li {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px 12px; border-radius: var(--raio-p); background: var(--superficie-alta);
+}
+.cz-lista-sugestao li > div { min-width: 0; overflow-wrap: anywhere; }
+.cz-lista-sugestao .botao { flex-shrink: 0; min-height: 40px; }
+
+.cz-necessidade { min-height: 40px; }
+.cz-dados { margin-bottom: 14px; }
+
+/* ---------- cardapio: grade de pratos ---------- */
+.cz-grade-pratos { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.cz-prato {
+    display: flex; flex-direction: column; overflow: hidden; min-width: 0;
+    background: var(--superficie); border: 1px solid var(--borda); border-radius: var(--raio); box-shadow: var(--sombra);
+}
+.cz-prato-inativo { opacity: .72; }
+.cz-prato-foto {
+    position: relative; aspect-ratio: 16 / 10; background: linear-gradient(135deg, var(--acento-fundo), color-mix(in srgb, var(--lima) 22%, var(--superficie)));
+    display: grid; place-items: center; overflow: hidden;
+}
+.cz-prato-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cz-sem-foto svg { width: 54px; height: 54px; fill: none; stroke: var(--acento); stroke-width: 1.5; opacity: .55; }
+.cz-selo-foto {
+    position: absolute; top: 10px; padding: 3px 9px; border-radius: var(--raio-pill);
+    font-size: 11px; font-weight: 700; letter-spacing: .02em; box-shadow: 0 1px 4px rgba(28, 42, 33, .2);
+}
+.cz-selo-destaque { left: 10px; background: var(--dourado); color: var(--verde-profundo); }
+.cz-selo-promo { right: 10px; background: var(--laranja); color: #fff; }
+.cz-prato-corpo { display: flex; flex-direction: column; gap: 5px; padding: 12px 14px 4px; flex: 1 1 auto; min-width: 0; }
+.cz-prato-categoria { color: var(--tinta-fraca); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.cz-prato-nome { font-size: 15px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.cz-prato-preco { font-size: 15px; }
+.cz-prato-preco strong { color: var(--acento); font-weight: 700; }
+.cz-prato-preco s { color: var(--tinta-fraca); font-size: 13px; }
+.cz-macros { color: var(--tinta-media); font-size: 12.5px; }
+.cz-selos { display: flex; flex-wrap: wrap; }
+.cz-linha-estoque { font-size: 12.5px; color: var(--tinta-media); }
+.cz-estoque-hora { color: var(--acento); font-weight: 600; }
+.cz-margem { font-size: 12.5px; color: var(--tinta-media); }
+.cz-etiquetas { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+.cz-prato-acoes {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 10px 14px 14px;
+    border-top: 1px solid var(--borda); margin-top: 8px;
+}
+.cz-prato-acoes .botao, .cz-prato-acoes .botao-icone { min-height: 38px; }
+
+/* ---------- cardapio: grupos de adicionais ---------- */
+.cz-grade-grupos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.cz-grupo-adicional {
+    display: flex; flex-direction: column; gap: 8px; padding: 16px;
+    background: var(--superficie); border: 1px solid var(--borda); border-radius: var(--raio); box-shadow: var(--sombra);
+}
+.cz-grupo-cabeca { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.cz-grupo-cabeca h4 { font-size: 15px; font-weight: 600; margin-right: auto; overflow-wrap: anywhere; }
+.cz-opcoes { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.cz-opcoes li {
+    display: flex; justify-content: space-between; gap: 10px; padding: 6px 10px;
+    border-radius: 8px; background: var(--superficie-alta); font-size: 13px;
+}
+.cz-opcoes li span:last-child { color: var(--tinta-media); white-space: nowrap; }
+.cz-opcao-inativa { opacity: .55; text-decoration: line-through; }
+.cz-grupo-adicional .cz-prato-acoes { padding: 10px 0 0; margin-top: auto; }
+
+/* ---------- formulario do prato (dentro da janela) ---------- */
+.cz-form-prato { min-width: 0; }
+.cz-abas-form { width: 100%; margin-bottom: 16px; }
+.cz-abas-form .sub-aba { min-height: 38px; }
+.cz-painel-form {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;
+}
+.cz-painel-form.oculta { display: none; }
+.cz-painel-form .interruptor { min-height: 40px; }
+
+.cz-pilulas { display: flex; flex-wrap: wrap; gap: 8px; }
+.cz-pilula { position: relative; cursor: pointer; }
+.cz-pilula input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.cz-pilula span {
+    display: inline-flex; align-items: center; min-height: 38px; padding: 0 14px; border-radius: var(--raio-pill);
+    border: 1px solid var(--borda-forte); background: var(--superficie); color: var(--tinta-media); font-size: 13px; font-weight: 500;
+}
+.cz-pilula input:checked + span { background: var(--acento); border-color: var(--acento); color: #fff; }
+.cz-pilula input:focus-visible + span { outline: 2px solid var(--acento); outline-offset: 2px; }
+
+.cz-pilulas-grupos { flex-direction: column; }
+.cz-grupo-opcao {
+    display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; cursor: pointer;
+    border: 1px solid var(--borda); border-radius: var(--raio-p); background: var(--superficie);
+}
+.cz-grupo-opcao input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--acento); flex-shrink: 0; }
+.cz-grupo-opcao span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cz-grupo-opcao small { color: var(--tinta-fraca); font-size: 12px; overflow-wrap: anywhere; }
+.cz-grupo-opcao:has(input:checked) { border-color: var(--acento-borda); background: var(--acento-fundo); }
+
+/* ficha tecnica */
+.cz-ficha { display: grid; gap: 8px; margin-bottom: 10px; }
+.cz-ficha-cabeca, .cz-ficha-linha {
+    display: grid; grid-template-columns: minmax(0, 2fr) minmax(110px, 1fr) minmax(0, 1.6fr) auto; gap: 8px; align-items: center;
+}
+.cz-ficha-cabeca { color: var(--tinta-media); font-size: 11px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
+.cz-ficha-linha select, .cz-ficha-linha input, .cz-opcao-linha input {
+    width: 100%; min-width: 0; padding: 9px 11px; min-height: 40px;
+    background: var(--superficie-alta); border: 1px solid var(--borda); border-radius: var(--raio-p);
+    color: var(--tinta); font: inherit; font-size: 13px;
+}
+.cz-ficha-qtd { display: flex; align-items: center; gap: 6px; }
+.cz-ficha-qtd span { color: var(--tinta-media); font-size: 12px; min-width: 18px; }
+.cz-ficha-info { overflow-wrap: anywhere; }
+.cz-ficha-total {
+    margin: 12px 0 6px; padding: 10px 12px; border-radius: var(--raio-p);
+    background: var(--acento-fundo); font-size: 13px;
+}
+.cz-ficha-total:empty { display: none; }
+
+/* fotos */
+.cz-fotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+.cz-foto { position: relative; margin: 0; border-radius: var(--raio-p); overflow: hidden; border: 1px solid var(--borda); background: var(--superficie-alta); }
+.cz-foto img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.cz-foto:first-child::after {
+    content: 'Capa'; position: absolute; top: 6px; left: 6px; padding: 2px 8px; border-radius: var(--raio-pill);
+    background: var(--acento); color: #fff; font-size: 11px; font-weight: 600;
+}
+.cz-foto button { position: absolute; bottom: 6px; right: 6px; background: var(--superficie); min-height: 32px; }
+.cz-escolher-foto { cursor: pointer; margin-bottom: 6px; }
+
+/* grupo de adicionais (formulario) */
+.cz-form-grupo .modal-corpo-interno {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 15px; margin-bottom: 8px;
+}
+.cz-opcoes-editor { display: grid; gap: 8px; margin-bottom: 10px; }
+.cz-opcao-linha {
+    display: grid; grid-template-columns: minmax(0, 2fr) repeat(3, minmax(80px, 1fr)) auto auto; gap: 8px; align-items: center;
+}
+.cz-mini { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cz-mini span { color: var(--tinta-fraca); font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; }
+.cz-bloco { display: block; margin-top: 8px; }
+
+/* ---------- telas estreitas ---------- */
+@media (max-width: 640px) {
+    .cz-alertas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .cz-alerta { padding: 10px 12px; }
+    .cz-alerta strong { font-size: 20px; }
+    .cz-grade-pratos, .cz-grade-producao, .cz-grade-grupos { grid-template-columns: minmax(0, 1fr); }
+    .cz-ficha-cabeca { display: none; }
+    .cz-ficha-linha {
+        grid-template-columns: minmax(0, 1fr) auto; padding: 10px; border-radius: var(--raio-p); background: var(--superficie-alta);
+    }
+    .cz-ficha-linha select { grid-column: 1 / -1; background: var(--superficie); }
+    .cz-ficha-linha .cz-ficha-qtd input { background: var(--superficie); }
+    .cz-ficha-info { grid-column: 1 / -1; order: 3; }
+    .cz-opcao-linha {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 10px; border-radius: var(--raio-p); background: var(--superficie-alta);
+    }
+    .cz-opcao-linha > input[data-opcao-nome] { grid-column: 1 / -1; background: var(--superficie); }
+    .cz-opcao-linha .cz-mini input { background: var(--superficie); }
+    .cz-lista-sugestao li { flex-direction: column; align-items: stretch; }
+    .cz-quantidade-linha select { min-width: 80px; }
+    .barra-filtros .cz-check { width: 100%; }
+}
+
+/* Celular: o cartao do prato vira linha compacta (miniatura a esquerda),
+   como no gestor de pedidos - 12 pratos cabem em poucas telas, nao em 7. */
+@media (max-width: 640px) {
+    .cz-prato { display: grid; grid-template-columns: 92px minmax(0, 1fr); }
+    .cz-prato-foto { aspect-ratio: auto; height: 100%; min-height: 104px; grid-row: 1; }
+    .cz-sem-foto svg { width: 34px; height: 34px; }
+    .cz-selo-foto { top: 6px; left: 6px; right: auto; padding: 2px 6px; font-size: 10px; }
+    .cz-selo-promo { top: auto; bottom: 6px; }
+    .cz-prato-corpo { padding: 10px 12px 6px; gap: 3px; }
+    .cz-prato-nome { font-size: 14px; }
+    .cz-prato-acoes { grid-column: 1 / -1; margin-top: 0; padding: 8px 10px 10px; }
+    .cz-prato-acoes .botao-icone { padding-left: 10px; padding-right: 10px; }
+}
+
+.cz-mais { display: block; margin: 14px auto 0; min-height: 40px; }
+/* O interruptor dentro do campo nao herda a caixa alta do rotulo do campo. */
+.cz-form-prato .interruptor, .cz-form-grupo .interruptor { text-transform: none; letter-spacing: normal; font-size: 13px; color: var(--tinta); }
+@media (max-width: 640px) {
+    /* abas viram uma faixa que rola de lado (como as categorias de um app de delivery) */
+    .cz-abas, .cz-abas-form {
+        width: 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .cz-abas::-webkit-scrollbar, .cz-abas-form::-webkit-scrollbar { display: none; }
+    .cz-abas .sub-aba, .cz-abas-form .sub-aba { flex: 0 0 auto; min-height: 40px; }
+    .cz-painel-form { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .cz-painel-form > .campo-total, .cz-painel-form > .campo:has(textarea), .cz-painel-form > .campo:has(select),
+    .cz-painel-form > .campo:has(.interruptor) { grid-column: 1 / -1; }
+}
+
+/* ajustes vistos nos prints */
+.barra-filtros .cz-check input { flex: 0 0 auto; width: 18px; height: 18px; min-width: 0; padding: 0; margin: 0; border: 0; }
+.barra-filtros .cz-check { flex: 0 0 auto; width: auto; }
+.botao.botao-perigo-suave { background: var(--critico); border-color: var(--critico); color: #fff; }
+.cz-nowrap { white-space: nowrap; }
+table.em-cartoes tr.cz-linha-vencida td:first-child, table.em-cartoes tr.cz-linha-vencendo td:first-child { box-shadow: none; }
+/* pilulas, grupos e checagens sao <label> dentro de .campo: sem a caixa alta do rotulo do campo */
+.campo label.cz-pilula, .campo label.cz-grupo-opcao, .campo label.cz-check, label.cz-mini, .cz-opcao-linha label {
+    text-transform: none; letter-spacing: normal; margin-bottom: 0; font-size: 13px; color: var(--tinta);
+}
+.campo label.cz-pilula span { font-size: 13px; }
+label.cz-mini span { text-transform: uppercase; }
